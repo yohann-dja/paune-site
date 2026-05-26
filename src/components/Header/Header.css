@@ -1,0 +1,176 @@
+/* ── Container ──────────────────────────────────────────────────── */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--header-h);
+  background: transparent;
+  /* Let the page behind receive pointer events where the header is empty */
+  pointer-events: none;
+}
+
+/* Re-enable pointer events on actual interactive children */
+.header__inner > * {
+  pointer-events: auto;
+}
+
+.header__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 var(--edge-px);
+  padding-left: calc(var(--edge-px)*0.74);
+  padding-right: calc(var(--edge-px)*1.1)
+}
+
+/* ── Logo (far left) ────────────────────────────────────────────── */
+.header__logo {
+  display: inline-flex;
+  align-items: center;
+  transition: opacity 0.25s var(--ease-out);
+}
+
+
+.header__logo img {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+/* ── Nav (far right) ────────────────────────────────────────────── */
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.header__link {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  color: var(--color-black);
+  transition: color 0.25s var(--ease-out);
+}
+
+.header__link:hover,
+.header__link--active {
+  color: var(--color-gold);
+}
+
+/* ── Mobile burger wrapper ──────────────────────────────────────── */
+.header__right {
+  display: none; /* desktop: no right-side wrapper, nav is the right edge */
+  align-items: center;
+}
+
+.header__burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 28px;
+  padding: 4px 0;
+  z-index: 110;
+}
+
+.header__burger span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--color-black);
+  transition: transform 0.3s var(--ease-out), opacity 0.2s ease, background 0.2s;
+  transform-origin: center;
+}
+
+.header__burger--open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.header__burger--open span:nth-child(2) {
+  opacity: 0;
+}
+.header__burger--open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ── Mobile overlay ─────────────────────────────────────────────── */
+.header__mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease-out);
+  z-index: 99;
+}
+
+.header__mobile-nav--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.header__mobile-nav nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.25rem;
+}
+
+.header__mobile-nav .header__link {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  color: var(--color-black);
+}
+
+.header__mobile-nav .header__link:hover,
+.header__mobile-nav .header__link--active {
+  color: var(--color-gold);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Compact header: centred logo, burger pinned right, no vertical
+     padding anywhere. Header height is reduced via --header-h in
+     index.css (mobile override). */
+  .header__inner {
+    padding: 0 var(--page-px-sm);
+    justify-content: center;
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  /* Centred logo at a classic, smaller size */
+  .header__logo {
+    justify-content: center;
+  }
+
+  .header__logo img {
+    height: 24px;
+  }
+
+  /* Burger taken out of flow so the logo stays perfectly centred */
+  .header__right {
+    display: flex;
+    position: absolute;
+    right: var(--page-px-sm);
+    top: 0;
+    bottom: 0;
+    align-items: center;
+  }
+
+  .header__burger {
+    display: flex;
+    padding: 0; /* remove vertical spacing */
+  }
+}

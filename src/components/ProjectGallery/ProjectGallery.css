@@ -1,0 +1,100 @@
+/* ─────────────────────────────────────────────────────────────────
+   Justified vertical gallery
+   ─────────────────────────────────────────────────────────────────
+   Each row has a computed height (set inline) and each cell width =
+   height × aspect, so images keep their native proportions and the row
+   exactly fills the available width after the constant gaps.
+
+   A cell with an `href` becomes a Link with a hover overlay; otherwise
+   it's a plain image cell.
+   ───────────────────────────────────────────────────────────────── */
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
+.gallery__row {
+  display: flex;
+  gap: 2px;
+  width: 100%;
+}
+
+.gallery__cell {
+  position: relative;
+  height: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--color-grey);
+}
+
+.gallery__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Clickable / hoverable variant (work index page) ──────────── */
+.gallery__cell--link {
+  display: block;
+  cursor: pointer;
+}
+
+.gallery__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.32);
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.gallery__cell--link:hover .gallery__overlay,
+.gallery__cell--link:focus-visible .gallery__overlay {
+  opacity: 1;
+}
+
+.gallery__caption {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.9rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--color-white);
+  text-align: center;
+  padding: 0 1rem;
+  transform: translateY(6px);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out) 0.05s,
+              transform 0.5s var(--ease-out) 0.05s;
+}
+
+.gallery__cell--link:hover .gallery__caption,
+.gallery__cell--link:focus-visible .gallery__caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Disable hover overlay on touch devices to avoid sticky states */
+@media (hover: none) {
+  .gallery__overlay {
+    display: none;
+  }
+
+  /* Two-tap: the first tap adds --active, which reveals the overlay +
+     title; the second tap then follows the link. */
+  .gallery__cell--active .gallery__overlay {
+    display: flex;
+    opacity: 1;
+  }
+  .gallery__cell--active .gallery__caption {
+    opacity: 1;
+    transform: none;
+  }
+}

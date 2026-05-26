@@ -1,0 +1,172 @@
+/* ─────────────────────────────────────────────────────────────────
+   Project page — single-column layout
+   ─────────────────────────────────────────────────────────────────
+   Order: small title → justified gallery → main title row (with
+   inline "next project" link) → meta. Text blocks share a wider
+   gutter (2.2 × the global edge gutter) while the gallery keeps the
+   regular `--edge-px` so the photos stay full-width.
+   ───────────────────────────────────────────────────────────────── */
+
+.project-page {
+  --text-px: calc(var(--edge-px) * 2.2);
+  padding-block: 2rem 0;
+}
+
+/* ── Small title (above the gallery) ────────────────────────────── */
+.project-page__title-small {
+  padding-inline: var(--text-px);
+  margin-bottom: 1.25rem;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--color-black);
+}
+
+/* ── Gallery — full width between the regular edge gutters ──────── */
+.project-page__gallery {
+  padding-inline: var(--edge-px);
+}
+
+/* ── Header (below the gallery) ─────────────────────────────────── */
+.project-page__header {
+  padding-inline: var(--text-px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-top: 2.5rem;
+  padding-bottom: 3rem;
+}
+
+/* Title + "next project" share the same horizontal line */
+.project-page__title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.project-page__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: var(--color-black);
+}
+
+.project-page__next {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--color-black);
+  white-space: nowrap;
+  transition: color 0.25s var(--ease-out);
+}
+
+.project-page__next:hover {
+  color: var(--color-gold);
+}
+
+/* Definition list of project metadata — labels in Centaur (display) */
+.project-page__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  max-width: 640px;
+}
+
+.project-page__meta-row {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.project-page__meta-label {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--color-black);
+  margin: 0;
+}
+
+.project-page__meta-value {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  color: var(--color-black);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .project-page {
+    --text-px: var(--page-px-sm);
+    padding-block: 1.5rem 0;
+  }
+
+  .project-page__title-small {
+    margin-bottom: 1rem;
+  }
+
+  /* Mobile: gallery runs full-bleed (edge to edge); the text blocks
+     keep their small gutter. */
+  .project-page__gallery {
+    padding-inline: 0;
+  }
+
+  .project-page__header {
+    gap: 1.25rem;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .project-page__title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .project-page__meta-row {
+    grid-template-columns: 130px 1fr;
+  }
+
+  .project-page__meta-label {
+    font-size: 0.85rem;
+  }
+}
+
+/* ── Phone-specific (mobile only) ───────────────────────────────── */
+@media (max-width: 768px) {
+  /* No gap between the header and the page: content starts flush at
+     the header's bottom edge. */
+  .project-page {
+    padding-block: 0 0;
+  }
+
+  /* Double the LEFT margin of the small title above the photos only,
+     and halve the vertical gap between the title and the photos. */
+  .project-page__title-small {
+    padding-left: calc(var(--page-px-sm) * 2);
+    margin-bottom: 0.5rem;
+  }
+
+  /* "Next project" moves below the description, pinned bottom-right.
+     It's pulled out of the title row's flow via absolute positioning,
+     so the title sits alone above the photos. */
+  .project-page__header {
+    position: relative;
+    padding-bottom: 3.5rem;
+  }
+
+  .project-page__next {
+    position: absolute;
+    right: var(--page-px-sm);
+    bottom: 1rem;
+  }
+}

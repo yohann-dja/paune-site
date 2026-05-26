@@ -1,0 +1,158 @@
+/* ─────────────────────────────────────────────────────────────────
+   Home hero
+   ───────────────────────────────────────────────────────────────── */
+
+.home {
+  position: relative;
+  /* Hero size is locked to --home-offset so changing --header-h (the
+     visual height of the transparent header) doesn't shrink the slide.
+     `--home-top` lets you push the hero further down the page without
+     reducing its height — the page just becomes a touch taller. */
+  margin-top: calc(var(--home-offset) + var(--home-top) - var(--header-h));
+  height: calc(100vh - var(--home-offset));
+  min-height: 540px;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+/* The slide is inset by --edge-px on the sides so the hero image
+   aligns with the same gutter as the header / projects / project
+   pages. Top + bottom remain flush with the section. */
+.home__slide {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--edge-px);
+  right: var(--edge-px);
+}
+
+/* Background images — slow cross-fade between slides */
+.home__bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s var(--ease-out);
+}
+
+.home__bg--active {
+  opacity: 1;
+}
+
+.home__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Title overlay — hidden by default, fades in over a dark veil on hover */
+.home__title-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.45s var(--ease-out);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.home__slide:hover .home__title-wrap {
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.home__project-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5.5vw, 4rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--color-white);
+  text-align: center;
+  padding: 0 2rem;
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s var(--ease-out) 0.05s,
+              transform 0.5s var(--ease-out) 0.05s;
+}
+
+.home__slide:hover .home__project-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Touch devices have no hover — keep the title visible by default. */
+@media (hover: none) {
+  .home__title-wrap {
+    background: rgba(0, 0, 0, 0.32);
+  }
+  .home__project-title {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   Edge chevrons
+   ───────────────────────────────────────────────────────────────── */
+
+.home__chevron {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  color: var(--color-white);
+  background: transparent;
+  opacity: 0.65;
+  transition: opacity 0.3s var(--ease-out), background 0.3s var(--ease-out);
+  padding: 0;
+}
+
+.home__chevron--left {
+  left: 0;
+  justify-content: flex-start;
+  padding-left: 1rem;
+}
+
+.home__chevron--right {
+  right: 0;
+  justify-content: flex-end;
+  padding-right: 1rem;
+}
+
+.home__chevron--left:hover,
+.home__chevron--right:hover {
+  opacity: 1;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .home {
+    min-height: 460px;
+  }
+
+  .home__slide {
+    left: var(--page-px-sm);
+    right: var(--page-px-sm);
+  }
+
+  .home__project-title {
+    font-size: clamp(1.6rem, 8vw, 2.4rem);
+  }
+
+  .home__chevron {
+    width: 20%;
+    opacity: 0.7;
+  }
+
+  .home__chevron--left {
+    padding-left: 0.5rem;
+  }
+
+  .home__chevron--right {
+    padding-right: 0.5rem;
+  }
+}

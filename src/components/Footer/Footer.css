@@ -1,0 +1,108 @@
+.footer {
+  position: relative;
+  padding: 1.7rem calc(var(--edge-px) * 2) 1.445rem;
+  background: var(--color-bg);
+}
+
+/* ── Top row — Instagram | Logo | fr/en, all vertically centred ── */
+.footer__top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Left link */
+.footer__link {
+  justify-self: start;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--color-black);
+  transition: color 0.25s var(--ease-out);
+}
+
+.footer__link:hover {
+  color: var(--color-gold);
+}
+
+/* Center logo */
+.footer__logo {
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.25s var(--ease-out);
+}
+
+.footer__logo svg {
+  height: 2.3rem;
+  width: auto;
+  display: block;
+}
+
+/* Right: language toggle */
+.footer__lang {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--color-black);
+}
+
+.footer__lang-btn {
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  opacity: 0.45;
+  transition: opacity 0.25s var(--ease-out);
+}
+
+.footer__lang-btn:hover,
+.footer__lang-btn--active {
+  opacity: 1;
+}
+
+.footer__lang-sep {
+  opacity: 0.4;
+  user-select: none;
+}
+
+/* Copyright — fine print anchored bottom-right inside the gutters */
+.footer__copy {
+  position: absolute;
+  right: calc(var(--edge-px) * 2);
+  bottom: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.35rem;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  color: var(--color-black);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .footer {
+    padding: 1.4rem var(--page-px-sm) 1.1rem;
+  }
+
+  .footer__top {
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0.75rem;
+  }
+
+  /* Smaller footer logo on mobile */
+  .footer__logo svg {
+    height: 1.5rem;
+  }
+
+  .footer__copy {
+    right: var(--page-px-sm);
+    bottom: 0.3rem;
+    font-size: 0.4rem;
+  }
+}

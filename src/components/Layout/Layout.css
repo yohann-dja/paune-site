@@ -1,0 +1,13 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.layout__main {
+  flex: 1;
+  /* Every page sits below the (transparent) fixed header on initial load.
+     During scroll, the header overlays whatever is behind it. */
+  padding-top: var(--header-h);
+}
