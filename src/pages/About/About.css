@@ -85,10 +85,8 @@
 
 /* ── Phone-specific (mobile only) ───────────────────────────────── */
 @media (max-width: 768px) {
-  /* No extra gap between the header and the photo: the page starts
-     flush at the header's bottom edge (the header-height space above
-     comes from .layout__main's padding-top). */
   .about-page {
     padding-top: 0;
+    padding-bottom: 0;
   }
 }

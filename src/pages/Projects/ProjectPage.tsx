@@ -42,8 +42,6 @@ export default function ProjectPage() {
         />
       </div>
 
-      {/* Title + meta below the gallery — title row contains the
-          "next project" link, aligned with the title baseline. */}
       <header className="project-page__header">
         <div className="project-page__title-row">
           <h1 className="project-page__title">{project.title}</h1>
@@ -51,7 +49,7 @@ export default function ProjectPage() {
           {nextProject && (
             <Link
               to={`/work/${nextProject.slug}`}
-              className="project-page__next"
+              className="project-page__next project-page__next--desktop"
               aria-label={`${t.project.nextProject} — ${nextProject.title}`}
             >
               {t.project.nextProject}
@@ -67,6 +65,16 @@ export default function ProjectPage() {
             </div>
           ))}
         </dl>
+
+        {nextProject && (
+          <Link
+            to={`/work/${nextProject.slug}`}
+            className="project-page__next project-page__next--mobile"
+            aria-label={`${t.project.nextProject} — ${nextProject.title}`}
+          >
+            {t.project.nextProject}
+          </Link>
+        )}
       </header>
     </article>
   );

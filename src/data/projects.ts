@@ -3,10 +3,7 @@ import { Project } from '../types/project';
 /* ─────────────────────────────────────────────────────────────────────
    Project data
    ─────────────────────────────────────────────────────────────────────
-   Project images for Rennequin and Mandar are sourced from local
-   folders (`./n_1` and `./n_2`) via Vite's `import.meta.glob`. All other
-   projects keep their Unsplash placeholders until photography arrives.
-   ───────────────────────────────────────────────────────────────────── */
+*/
 
 /** Move the image whose filename contains `needle` to the front. */
 function withCoverFirst(images: string[], needle: string): string[] {
@@ -17,7 +14,8 @@ function withCoverFirst(images: string[], needle: string): string[] {
   return [images[idx], ...images.slice(0, idx), ...images.slice(idx + 1)];
 }
 
-const rennequinImages = withCoverFirst(
+// Martel.
+const martelImages = withCoverFirst(
   Object.values(
     import.meta.glob('./n_1/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', {
       eager: true,
@@ -28,7 +26,8 @@ const rennequinImages = withCoverFirst(
   '16.36.33 (7)'
 );
 
-const mandarImages = withCoverFirst(
+// Joseph de Maistre.
+const josephDeMaistreImages = withCoverFirst(
   Object.values(
     import.meta.glob('./n_2/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', {
       eager: true,
@@ -40,12 +39,13 @@ const mandarImages = withCoverFirst(
 );
 
 export const projects: Project[] = [
+  /* ── Mandar — disabled (photos moved to Joseph de Maistre) ──────────
   {
     id: 'mandar',
     slug: 'mandar',
     title: 'Mandar',
-    coverImage: mandarImages[0],
-    images: mandarImages,
+    coverImage: '', // provide an images source before re-enabling
+    images: [],
     program: { fr: 'Rénovation d’appartement', en: 'Apartment renovation' },
     location: { fr: 'Paris 2', en: 'Paris 2' },
     surface: '57 m²',
@@ -56,31 +56,29 @@ export const projects: Project[] = [
     },
     photographer: 'Jean de Blignières',
   },
+  ─────────────────────────────────────────────────────────────────── */
 
+  /* ── Rennequin — disabled (photos moved to Martel) ──────────────────
   {
     id: 'rennequin',
     slug: 'rennequin',
     title: 'Rennequin',
-    coverImage: rennequinImages[0],
-    images: rennequinImages,
+    coverImage: '', // provide an images source before re-enabling
+    images: [],
     program: { fr: 'Concept de rénovation', en: 'Renovation concept' },
     location: { fr: 'Paris 17', en: 'Paris 17' },
     surface: '120 m²',
     client: { fr: 'Privé', en: 'Private' },
     status: { fr: 'Livré mai 2025', en: 'Completed May 2025' },
   },
+  ─────────────────────────────────────────────────────────────────── */
 
   {
     id: 'joseph-de-maistre',
     slug: 'joseph-de-maistre',
     title: 'Joseph de Maistre',
-    coverImage:
-      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1600&q=80',
-      'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=1600&q=80',
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80',
-    ],
+    coverImage: josephDeMaistreImages[0],
+    images: josephDeMaistreImages,
     program: { fr: 'Rénovation d’appartement', en: 'Apartment renovation' },
     location: { fr: 'Paris 18', en: 'Paris 18' },
     surface: '53 m²',
@@ -93,13 +91,8 @@ export const projects: Project[] = [
     id: 'martel',
     slug: 'martel',
     title: 'Martel',
-    coverImage:
-      'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=1600&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=1600&q=80',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80',
-      'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80',
-    ],
+    coverImage: martelImages[0],
+    images: martelImages,
     program: { fr: 'Rénovation d’appartement', en: 'Apartment renovation' },
     location: { fr: 'Paris 10', en: 'Paris 10' },
     surface: '35 m²',
@@ -108,6 +101,7 @@ export const projects: Project[] = [
     photographer: 'Jean de Blignières',
   },
 
+  /* ── Hauteville — disabled ─────────────────────────────────────────
   {
     id: 'hauteville',
     slug: 'hauteville',
@@ -126,7 +120,9 @@ export const projects: Project[] = [
     status: { fr: 'Livré décembre 2023', en: 'Delivered December 2023' },
     photographer: 'Jean de Blignières',
   },
+  ─────────────────────────────────────────────────────────────────── */
 
+  /* ── Lalonde — disabled ────────────────────────────────────────────
   {
     id: 'lalonde',
     slug: 'lalonde',
@@ -152,4 +148,5 @@ export const projects: Project[] = [
     },
     photographer: 'Jean de Blignières',
   },
+  ─────────────────────────────────────────────────────────────────── */
 ];

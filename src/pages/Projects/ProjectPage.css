@@ -69,6 +69,10 @@
   color: var(--color-gold);
 }
 
+.project-page__next--mobile {
+  display: none;
+}
+
 /* Definition list of project metadata — labels in Centaur (display) */
 .project-page__meta {
   display: flex;
@@ -143,30 +147,29 @@
 
 /* ── Phone-specific (mobile only) ───────────────────────────────── */
 @media (max-width: 768px) {
-  /* No gap between the header and the page: content starts flush at
-     the header's bottom edge. */
+  
   .project-page {
     padding-block: 0 0;
   }
 
-  /* Double the LEFT margin of the small title above the photos only,
-     and halve the vertical gap between the title and the photos. */
+  
   .project-page__title-small {
     padding-left: calc(var(--page-px-sm) * 2);
     margin-bottom: 0.5rem;
   }
 
-  /* "Next project" moves below the description, pinned bottom-right.
-     It's pulled out of the title row's flow via absolute positioning,
-     so the title sits alone above the photos. */
+  
   .project-page__header {
-    position: relative;
-    padding-bottom: 3.5rem;
+    padding-bottom: 0;
   }
 
-  .project-page__next {
-    position: absolute;
-    right: var(--page-px-sm);
-    bottom: 1rem;
+  .project-page__next--desktop {
+    display: none;
+  }
+
+  .project-page__next--mobile {
+    display: inline-block;
+    align-self: flex-end;
+    margin-top: 0.5rem;
   }
 }
