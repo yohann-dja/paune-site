@@ -29,53 +29,42 @@ export default function ProjectPage() {
 
   return (
     <article className="project-page">
-      {/* Small title above the gallery */}
-      <h2 className="project-page__title-small">{project.title}</h2>
-
-      {/* Justified vertical gallery — full width between page-edge gutters */}
-      <div className="project-page__gallery">
-        <ProjectGallery
-          items={project.images.map((src, i) => ({
-            src,
-            alt: `${project.title} — ${i + 1}`,
-          }))}
-        />
-      </div>
-
-      <header className="project-page__header">
-        <div className="project-page__title-row">
+      <div className="project-page__layout">
+        {/* Sticky info column (1/5 width, stays visible while scrolling) */}
+        <aside className="project-page__info">
           <h1 className="project-page__title">{project.title}</h1>
+
+          <div className="project-page__meta">
+            {metaRows.map((row) => (
+              <p key={row.label} className="project-page__meta-row">
+                {row.label}/ {row.value}
+              </p>
+            ))}
+          </div>
 
           {nextProject && (
             <Link
               to={`/work/${nextProject.slug}`}
-              className="project-page__next project-page__next--desktop"
+              className="project-page__next"
               aria-label={`${t.project.nextProject} — ${nextProject.title}`}
             >
               {t.project.nextProject}
             </Link>
           )}
+        </aside>
+
+        {/* Gallery: landscape photos full width, portraits paired 2-up */}
+        <div className="project-page__gallery">
+          <ProjectGallery
+            variant="project"
+            gap={8}
+            items={project.images.map((src, i) => ({
+              src,
+              alt: `${project.title} — ${i + 1}`,
+            }))}
+          />
         </div>
-
-        <dl className="project-page__meta">
-          {metaRows.map((row) => (
-            <div key={row.label} className="project-page__meta-row">
-              <dt className="project-page__meta-label">{row.label}</dt>
-              <dd className="project-page__meta-value">{row.value}</dd>
-            </div>
-          ))}
-        </dl>
-
-        {nextProject && (
-          <Link
-            to={`/work/${nextProject.slug}`}
-            className="project-page__next project-page__next--mobile"
-            aria-label={`${t.project.nextProject} — ${nextProject.title}`}
-          >
-            {t.project.nextProject}
-          </Link>
-        )}
-      </header>
+      </div>
     </article>
   );
 }

@@ -5,38 +5,38 @@ import { Project } from '../types/project';
    ─────────────────────────────────────────────────────────────────────
 */
 
-/** Move the image whose filename contains `needle` to the front. */
-function withCoverFirst(images: string[], needle: string): string[] {
-  const idx = images.findIndex((src) =>
-    decodeURIComponent(src).includes(needle)
-  );
-  if (idx <= 0) return images;
-  return [images[idx], ...images.slice(0, idx), ...images.slice(idx + 1)];
+// Images are loaded from their folders in natural (alphabetical) order.
+const martelImages = Object.values(
+  import.meta.glob('./n_1/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  })
+) as string[];
+
+const josephDeMaistreImages = Object.values(
+  import.meta.glob('./n_2/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  })
+) as string[];
+
+/* ─── Cover photo (portrait) shown on the Projects index ───────────
+   1-based photo number within each project's folder. Change these to
+   pick a different illustration photo. */
+const MARTEL_COVER_PHOTO = 8;
+const JOSEPH_DE_MAISTRE_COVER_PHOTO = 3;
+
+/* ─── Hero photo (landscape) shown on the home slideshow ───────────
+   1-based photo number; photo 1 is landscape in both folders. */
+const MARTEL_HERO_PHOTO = 1;
+const JOSEPH_DE_MAISTRE_HERO_PHOTO = 1;
+
+/** Pick the Nth photo (1-based), falling back to the first if out of range. */
+function coverPhoto(images: string[], photoNumber: number): string {
+  return images[photoNumber - 1] ?? images[0];
 }
-
-// Martel.
-const martelImages = withCoverFirst(
-  Object.values(
-    import.meta.glob('./n_1/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', {
-      eager: true,
-      query: '?url',
-      import: 'default',
-    })
-  ) as string[],
-  '16.36.33 (7)'
-);
-
-// Joseph de Maistre.
-const josephDeMaistreImages = withCoverFirst(
-  Object.values(
-    import.meta.glob('./n_2/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', {
-      eager: true,
-      query: '?url',
-      import: 'default',
-    })
-  ) as string[],
-  '17.17.03'
-);
 
 export const projects: Project[] = [
   /* ── Mandar — disabled (photos moved to Joseph de Maistre) ──────────
@@ -77,7 +77,8 @@ export const projects: Project[] = [
     id: 'joseph-de-maistre',
     slug: 'joseph-de-maistre',
     title: 'Joseph de Maistre',
-    coverImage: josephDeMaistreImages[0],
+    coverImage: coverPhoto(josephDeMaistreImages, JOSEPH_DE_MAISTRE_COVER_PHOTO),
+    heroImage: coverPhoto(josephDeMaistreImages, JOSEPH_DE_MAISTRE_HERO_PHOTO),
     images: josephDeMaistreImages,
     program: { fr: 'Rénovation d’appartement', en: 'Apartment renovation' },
     location: { fr: 'Paris 18', en: 'Paris 18' },
@@ -91,7 +92,8 @@ export const projects: Project[] = [
     id: 'martel',
     slug: 'martel',
     title: 'Martel',
-    coverImage: martelImages[0],
+    coverImage: coverPhoto(martelImages, MARTEL_COVER_PHOTO),
+    heroImage: coverPhoto(martelImages, MARTEL_HERO_PHOTO),
     images: martelImages,
     program: { fr: 'Rénovation d’appartement', en: 'Apartment renovation' },
     location: { fr: 'Paris 10', en: 'Paris 10' },

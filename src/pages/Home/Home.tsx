@@ -52,7 +52,7 @@ export default function Home() {
             aria-hidden={idx !== current}
           >
             <img
-              src={p.coverImage}
+              src={p.heroImage ?? p.coverImage}
               alt={p.title}
               loading={idx === 0 ? 'eager' : 'lazy'}
               className="home__bg-img"

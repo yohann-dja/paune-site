@@ -9,17 +9,43 @@
    it's a plain image cell.
    ───────────────────────────────────────────────────────────────── */
 
+/* Gap is set inline from the `gap` prop (JS must match CSS layout). */
 .gallery {
   display: flex;
   flex-direction: column;
-  gap: 2px;
   width: 100%;
 }
 
 .gallery__row {
   display: flex;
-  gap: 2px;
   width: 100%;
+}
+
+/* ── Covers variant: 2 columns, natural heights ────────────────────
+   Photos keep their full aspect (no crop / zoom). Horizontal size is
+   constrained by the page margins and the middle gap; vertical size is
+   whatever the photo needs, so the page scrolls to reveal it fully. */
+.gallery--covers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+}
+
+.gallery--covers .gallery__cell {
+  height: auto;
+}
+
+.gallery--covers .gallery__img {
+  width: 100%;
+  height: auto;
+  object-fit: fill;
+}
+
+@media (max-width: 768px) {
+  /* Mobile: one cover per row. */
+  .gallery--covers {
+    grid-template-columns: 1fr;
+  }
 }
 
 .gallery__cell {
@@ -49,7 +75,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.32);
+  background: rgba(255, 255, 255, 0.4);
   opacity: 0;
   transition: opacity 0.45s var(--ease-out);
   pointer-events: none;
@@ -66,7 +92,7 @@
   font-size: clamp(1.25rem, 2.4vw, 1.9rem);
   font-weight: 400;
   letter-spacing: 0.06em;
-  color: var(--color-white);
+  color: var(--color-black);
   text-align: center;
   padding: 0 1rem;
   transform: translateY(6px);

@@ -48,13 +48,15 @@
      --edge-px     = page-edge gutter (header, footer, gallery).
      --content-px  = editorial content margin (about, contact text).
      --content-max = max width of the readable column. */
-  --header-h:       144px;
-  /* Home hero vertical anchor — kept independent of --header-h so
-     changing the header height never resizes the slideshow. */
-  --home-offset:    72px;
-  /* Pushes the hero further down the page without shrinking it. */
-  --home-top:       72px;
+  --header-h:       76px;
+  /* Approximate rendered footer height — used to size the Projects
+     index covers and the about photo to the zone between header and footer. */
+  --footer-h:       80px;
   --edge-px:        clamp(5.5rem, 11vw, 11rem);
+  /* MARGE_SITE — shared horizontal page margin (≈ --edge-px / 2.5).
+     Used by the header, footer, projects index, project pages and
+     about page so every page lines up on the same gutter. */
+  --marge-site:     clamp(2rem, 4.4vw, 4.4rem);
   --content-px:     clamp(1.5rem, 8vw, 7rem);
   --content-max:    2000px;
   --page-px-sm:     1.25rem;

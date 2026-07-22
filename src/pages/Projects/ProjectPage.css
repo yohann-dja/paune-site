@@ -1,67 +1,70 @@
 /* ─────────────────────────────────────────────────────────────────
-   Project page — single-column layout
+   Project page — two-column layout
    ─────────────────────────────────────────────────────────────────
-   Order: small title → justified gallery → main title row (with
-   inline "next project" link) → meta. Text blocks share a wider
-   gutter (2.2 × the global edge gutter) while the gallery keeps the
-   regular `--edge-px` so the photos stay full-width.
+   Left: sticky info column (~1/5 of the width) that stays in view
+   while the photos scroll. Right: the photo gallery (~4/5). Both sit
+   inside the shared site gutter (--marge-site).
    ───────────────────────────────────────────────────────────────── */
 
 .project-page {
-  --text-px: calc(var(--edge-px) * 2.2);
-  padding-block: 2rem 0;
+  padding: 2rem var(--marge-site) 0;
 }
 
-/* ── Small title (above the gallery) ────────────────────────────── */
-.project-page__title-small {
-  padding-inline: var(--text-px);
-  margin-bottom: 1.25rem;
-  font-family: var(--font-display);
-  font-size: clamp(1rem, 1.4vw, 1.25rem);
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: var(--color-black);
+.project-page__layout {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 2.5rem;
+  align-items: start;
 }
 
-/* ── Gallery — full width between the regular edge gutters ──────── */
+/* Let the gallery track shrink below its content so the photos resize
+   with the window instead of overflowing (horizontal scroll). */
 .project-page__gallery {
-  padding-inline: var(--edge-px);
+  min-width: 0;
 }
 
-/* ── Header (below the gallery) ─────────────────────────────────── */
-.project-page__header {
-  padding-inline: var(--text-px);
+/* ── Info column (sticky) ───────────────────────────────────────── */
+.project-page__info {
+  position: sticky;
+  top: calc(var(--header-h) + 1.5rem);
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
-  margin-top: 2.5rem;
-  padding-bottom: 3rem;
-}
-
-/* Title + "next project" share the same horizontal line */
-.project-page__title-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   gap: 1.5rem;
+  min-width: 0;
 }
 
 .project-page__title {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
   font-weight: 400;
   letter-spacing: 0.04em;
-  line-height: 1.1;
+  line-height: 1.15;
   color: var(--color-black);
+}
+
+.project-page__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* "Programme/ Rénovation d'appartement" — one small line per field. */
+.project-page__meta-row {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  color: var(--color-black);
+  margin: 0;
 }
 
 .project-page__next {
   font-family: var(--font-display);
-  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  font-size: 0.85rem;
   font-weight: 400;
   letter-spacing: 0.05em;
   color: var(--color-black);
-  white-space: nowrap;
   transition: color 0.25s var(--ease-out);
 }
 
@@ -69,107 +72,30 @@
   color: var(--color-gold);
 }
 
-.project-page__next--mobile {
-  display: none;
-}
-
-/* Definition list of project metadata — labels in Centaur (display) */
-.project-page__meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  max-width: 640px;
-}
-
-.project-page__meta-row {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 1rem;
-  align-items: baseline;
-}
-
-.project-page__meta-label {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--color-black);
-  margin: 0;
-}
-
-.project-page__meta-value {
-  font-family: var(--font-body);
-  font-size: 0.82rem;
-  font-weight: 300;
-  letter-spacing: 0.02em;
-  color: var(--color-black);
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* ── Mobile ─────────────────────────────────────────────────────── */
-@media (max-width: 900px) {
-  .project-page {
-    --text-px: var(--page-px-sm);
-    padding-block: 1.5rem 0;
-  }
-
-  .project-page__title-small {
-    margin-bottom: 1rem;
-  }
-
-  /* Mobile: gallery runs full-bleed (edge to edge); the text blocks
-     keep their small gutter. */
-  .project-page__gallery {
-    padding-inline: 0;
-  }
-
-  .project-page__header {
-    gap: 1.25rem;
-    margin-top: 2rem;
-    padding-bottom: 2rem;
-  }
-
-  .project-page__title-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-
-  .project-page__meta-row {
-    grid-template-columns: 130px 1fr;
-  }
-
-  .project-page__meta-label {
-    font-size: 0.85rem;
-  }
-}
-
-/* ── Phone-specific (mobile only) ───────────────────────────────── */
+/* ── Narrow / mobile ────────────────────────────────────────────
+   When the window gets too narrow, stack into one column with the
+   gallery on top and the info text pushed to the bottom of the page
+   (like the about page). */
 @media (max-width: 768px) {
-  
   .project-page {
-    padding-block: 0 0;
+    padding: 0 0 2rem;
   }
 
-  
-  .project-page__title-small {
-    padding-left: calc(var(--page-px-sm) * 2);
-    margin-bottom: 0.5rem;
+  .project-page__layout {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
-  
-  .project-page__header {
-    padding-bottom: 0;
+  /* Gallery first (full-bleed), info after it. */
+  .project-page__gallery {
+    order: 1;
   }
 
-  .project-page__next--desktop {
-    display: none;
-  }
-
-  .project-page__next--mobile {
-    display: inline-block;
-    align-self: flex-end;
-    margin-top: 0.5rem;
+  .project-page__info {
+    order: 2;
+    position: static;
+    top: auto;
+    gap: 1rem;
+    padding: 1.25rem var(--page-px-sm) 0;
   }
 }

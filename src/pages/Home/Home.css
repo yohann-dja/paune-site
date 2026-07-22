@@ -4,26 +4,24 @@
 
 .home {
   position: relative;
-  /* Hero size is locked to --home-offset so changing --header-h (the
-     visual height of the transparent header) doesn't shrink the slide.
-     `--home-top` lets you push the hero further down the page without
-     reducing its height — the page just becomes a touch taller. */
-  margin-top: calc(var(--home-offset) + var(--home-top) - var(--header-h));
-  height: calc(100vh - var(--home-offset));
+  /* Hero sits flush below the header (the parent <main> already offsets
+     it by --header-h) and fills the rest of the viewport, adapting when
+     the header height changes. */
+  height: calc(100vh - var(--header-h));
   min-height: 540px;
   overflow: hidden;
   background: var(--color-bg);
 }
 
-/* The slide is inset by --edge-px on the sides so the hero image
+/* The slide is inset by --marge-site on the sides so the hero image
    aligns with the same gutter as the header / projects / project
    pages. Top + bottom remain flush with the section. */
 .home__slide {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: var(--edge-px);
-  right: var(--edge-px);
+  left: var(--marge-site);
+  right: var(--marge-site);
 }
 
 /* Background images — slow cross-fade between slides */
@@ -44,21 +42,21 @@
   object-fit: cover;
 }
 
-/* Title overlay — hidden by default, fades in over a dark veil on hover */
+/* Title overlay — hidden by default, fades in over a light veil on hover */
 .home__title-wrap {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0);
+  background: rgba(255, 255, 255, 0);
   transition: background 0.45s var(--ease-out);
   pointer-events: none;
   z-index: 5;
 }
 
 .home__slide:hover .home__title-wrap {
-  background: rgba(0, 0, 0, 0.32);
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .home__project-title {
@@ -66,7 +64,7 @@
   font-size: clamp(2rem, 5.5vw, 4rem);
   font-weight: 400;
   letter-spacing: 0.08em;
-  color: var(--color-white);
+  color: var(--color-black);
   text-align: center;
   padding: 0 2rem;
   pointer-events: auto;
@@ -84,7 +82,7 @@
 /* Touch devices have no hover — keep the title visible by default. */
 @media (hover: none) {
   .home__title-wrap {
-    background: rgba(0, 0, 0, 0.32);
+    background: rgba(255, 255, 255, 0.4);
   }
   .home__project-title {
     opacity: 1;
@@ -104,7 +102,7 @@
   z-index: 8;
   display: flex;
   align-items: center;
-  color: var(--color-white);
+  color: var(--color-black);
   background: transparent;
   opacity: 0.65;
   transition: opacity 0.3s var(--ease-out), background 0.3s var(--ease-out);

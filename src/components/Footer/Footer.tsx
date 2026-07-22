@@ -4,21 +4,14 @@ import LogoPauneBlack from '../../data/LOGO_PAUNE_BLACK.svg?react';
 import './Footer.css';
 
 export default function Footer() {
-  const { locale, setLocale, t } = useLocale();
+  const { locale, setLocale } = useLocale();
 
   return (
     <footer className="footer">
-      {/* Top row — all three items vertically centred */}
+      {/* Top row — logo centred, language toggle on the right */}
       <div className="footer__top">
-        {/* Left: Instagram */}
-        <a
-          href="https://www.instagram.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="footer__link"
-        >
-          {t.footer.instagram}
-        </a>
+        {/* Left: empty placeholder keeps the logo centred in the grid */}
+        <span aria-hidden="true" />
 
         {/* Center: logo → home */}
         <Link to="/" className="footer__logo" aria-label="PAUNE — accueil">
@@ -45,11 +38,6 @@ export default function Footer() {
             en
           </button>
         </div>
-      </div>
-
-      {/* Copyright — fine print pinned to bottom-right inside the gutters */}
-      <div className="footer__copy">
-        © {new Date().getFullYear()} Paune Architectes. {t.footer.rights}
       </div>
     </footer>
   );

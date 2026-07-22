@@ -1,7 +1,7 @@
 .projects-page {
-  /* Same edge gutter as the header; no bottom padding so the footer
-     sits flush against the gallery. */
-  padding: 1rem var(--edge-px) 0;
+  /* Shared site gutter; no vertical padding so each covers row fills
+     exactly the zone between the header and the footer. */
+  padding: 0 var(--marge-site);
 }
 
 @media (max-width: 768px) {

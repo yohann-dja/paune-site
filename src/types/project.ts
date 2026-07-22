@@ -8,8 +8,11 @@ export interface Project {
   slug: string;
   title: string;
 
-  /** Cover for homepage / grid */
+  /** Portrait cover shown on the Projects index */
   coverImage: string;
+
+  /** Landscape image shown on the home slideshow */
+  heroImage?: string;
 
   /** Full project gallery */
   images: string[];

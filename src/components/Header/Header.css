@@ -6,25 +6,17 @@
   right: 0;
   z-index: 100;
   height: var(--header-h);
-  background: transparent;
-  /* Let the page behind receive pointer events where the header is empty */
-  pointer-events: none;
-}
-
-/* Re-enable pointer events on actual interactive children */
-.header__inner > * {
-  pointer-events: auto;
+  background: var(--color-bg);
 }
 
 .header__inner {
   position: relative;
   display: flex;
   align-items: center;
+  /* Logo flush-left on the margin, nav flush-right on the margin. */
   justify-content: space-between;
   height: 100%;
-  padding: 0 var(--edge-px);
-  padding-left: calc(var(--edge-px)*0.74);
-  padding-right: calc(var(--edge-px)*1.1)
+  padding: 0 var(--marge-site);
 }
 
 /* ── Logo (far left) ────────────────────────────────────────────── */
@@ -36,7 +28,7 @@
 
 
 .header__logo img {
-  height: 50px;
+  height: 35px;
   width: auto;
   display: block;
 }
@@ -54,12 +46,15 @@
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   color: var(--color-black);
-  transition: color 0.25s var(--ease-out);
+  text-decoration: none;
 }
 
+/* Underline the current / hovered item instead of recolouring it. */
 .header__link:hover,
 .header__link--active {
-  color: var(--color-gold);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+  text-decoration-thickness: 1px;
 }
 
 /* ── Mobile burger wrapper ──────────────────────────────────────── */
@@ -133,7 +128,9 @@
 
 .header__mobile-nav .header__link:hover,
 .header__mobile-nav .header__link--active {
-  color: var(--color-gold);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+  text-decoration-thickness: 1px;
 }
 
 /* ── Responsive ─────────────────────────────────────────────────── */

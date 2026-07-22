@@ -4,27 +4,31 @@ import { useMediaQuery } from '../../hooks/useMediaQuery';
 import './ProjectGallery.css';
 
 /* ─────────────────────────────────────────────────────────────────
-   ProjectGallery — generic justified vertical gallery
+   ProjectGallery — vertical photo gallery with two layout variants
    ─────────────────────────────────────────────────────────────────
-   Each item is rendered as a cell whose width is computed so the row
-   exactly fills the container, with a constant gap. Cells are plain
-   <img> by default; if `href` is provided the cell becomes a router
-   <Link>, and if `caption` is provided a centred title fades in on
-   hover (used by the projects index page). The two extras are fully
-   opt-in — project pages keep the bare image-only behaviour.
+   variant="covers"  → 2 photos per row, each row filling the zone
+                        between header and footer (projects index).
+                        Photos are cropped to fill (object-fit: cover).
+   variant="project" → landscape photos fill the width alone; portrait
+                        photos are paired two-per-row, sized to keep
+                        their native proportions (project pages).
+
+   A cell with `href` becomes a Link with a hover overlay + caption.
+   On mobile both variants collapse to one full-width photo per row.
    ───────────────────────────────────────────────────────────────── */
 
 export interface GalleryItem {
   src: string;
   alt?: string;
-  /** If set, the cell becomes a clickable Link to this route. */
   href?: string;
-  /** If set, this label fades in over the image on hover. */
   caption?: string;
 }
 
 interface ProjectGalleryProps {
   items: GalleryItem[];
+  variant?: 'covers' | 'project';
+  /** Gap between cells, in px (horizontal AND vertical). */
+  gap?: number;
 }
 
 interface RowItem extends GalleryItem {
@@ -36,10 +40,11 @@ interface Row {
   height: number;
 }
 
-/** Constant gap (horizontal AND vertical) between cells — matches the CSS. */
-const GAP_PX = 2;
-
-export default function ProjectGallery({ items }: ProjectGalleryProps) {
+export default function ProjectGallery({
+  items,
+  variant = 'project',
+  gap = 8,
+}: ProjectGalleryProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [aspects, setAspects] = useState<Record<string, number>>({});
   const [containerWidth, setContainerWidth] = useState(0);
@@ -84,110 +89,137 @@ export default function ProjectGallery({ items }: ProjectGalleryProps) {
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
-    return () => ro.disconnect();
+    // Also listen to window resize as a reliable fallback (some browsers
+    // don't fire the observer for viewport-driven size changes).
+    window.addEventListener('resize', update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', update);
+    };
   }, []);
 
-  // ─── Pack items into justified rows ────────────────────────────────
-  const rows = useMemo<Row[]>(() => {
+  // Shared cell renderer (used by both variants).
+  const renderCell = (
+    item: GalleryItem,
+    key: string,
+    cellStyle?: React.CSSProperties
+  ) => {
+    const inner = (
+      <>
+        <img
+          src={item.src}
+          alt={item.alt ?? ''}
+          className="gallery__img"
+          loading="lazy"
+          decoding="async"
+        />
+        {item.caption && (
+          <div className="gallery__overlay">
+            <span className="gallery__caption">{item.caption}</span>
+          </div>
+        )}
+      </>
+    );
+
+    return item.href ? (
+      <Link
+        key={key}
+        to={item.href}
+        className={`gallery__cell gallery__cell--link${
+          activeKey === key ? ' gallery__cell--active' : ''
+        }`}
+        style={cellStyle}
+        aria-label={item.alt ?? item.caption}
+        onClick={(e) => {
+          if (isMobile && activeKey !== key) {
+            e.preventDefault();
+            setActiveKey(key);
+          }
+        }}
+      >
+        {inner}
+      </Link>
+    ) : (
+      <div key={key} className="gallery__cell" style={cellStyle}>
+        {inner}
+      </div>
+    );
+  };
+
+  // ─── Covers variant: 2-up full-height grid (CSS-driven) ────────────
+  if (variant === 'covers') {
+    return (
+      <div
+        className="gallery gallery--covers"
+        ref={containerRef}
+        style={{ gap: `${gap}px` }}
+      >
+        {items.map((item, i) => renderCell(item, `cover-${i}-${item.src}`))}
+      </div>
+    );
+  }
+
+  // ─── Project variant: aspect-packed rows ───────────────────────────
+  const rows = ((): Row[] => {
     const allLoaded = items.every((it) => aspects[it.src] != null);
     if (!allLoaded || containerWidth <= 0 || items.length === 0) return [];
 
-    // Mobile: one full-width image per row, natural height (no cropping).
+    // Mobile: one full-width photo per row, natural height.
     if (isMobile) {
-      return items.map((item) => {
-        const aspect = aspects[item.src];
-        return {
-          items: [{ ...item, aspect }],
-          height: containerWidth / aspect,
-        };
-      });
+      return items.map((item) => ({
+        items: [{ ...item, aspect: aspects[item.src] }],
+        height: containerWidth / aspects[item.src],
+      }));
     }
 
-    const target = containerWidth / 2;
+    // Desktop: landscapes full width alone, portraits paired.
     const out: Row[] = [];
-    let current: RowItem[] = [];
-    let aspectSum = 0;
+    let pendingPortrait: RowItem | null = null;
+
+    const flushPortrait = () => {
+      if (!pendingPortrait) return;
+      const cellW = (containerWidth - gap) / 2;
+      out.push({
+        items: [pendingPortrait],
+        height: cellW / pendingPortrait.aspect,
+      });
+      pendingPortrait = null;
+    };
 
     for (const item of items) {
       const aspect = aspects[item.src];
-      current.push({ ...item, aspect });
-      aspectSum += aspect;
-      const totalGap = (current.length - 1) * GAP_PX;
-      const rowHeight = (containerWidth - totalGap) / aspectSum;
-      if (rowHeight <= target) {
-        out.push({ items: current, height: rowHeight });
-        current = [];
-        aspectSum = 0;
+      if (aspect >= 1) {
+        flushPortrait();
+        out.push({ items: [{ ...item, aspect }], height: containerWidth / aspect });
+      } else if (pendingPortrait) {
+        const a1 = pendingPortrait.aspect;
+        out.push({
+          items: [pendingPortrait, { ...item, aspect }],
+          height: (containerWidth - gap) / (a1 + aspect),
+        });
+        pendingPortrait = null;
+      } else {
+        pendingPortrait = { ...item, aspect };
       }
     }
-
-    // Trailing partial row — left-aligned, capped at target height.
-    if (current.length > 0) {
-      const totalGap = (current.length - 1) * GAP_PX;
-      const naturalHeight = (containerWidth - totalGap) / aspectSum;
-      out.push({
-        items: current,
-        height: Math.min(naturalHeight, target),
-      });
-    }
+    flushPortrait();
 
     return out;
-  }, [items, aspects, containerWidth, isMobile]);
+  })();
 
   return (
-    <div className="gallery" ref={containerRef}>
+    <div className="gallery" ref={containerRef} style={{ gap: `${gap}px` }}>
       {rows.map((row, ri) => (
         <div
           className="gallery__row"
           key={ri}
-          style={{ height: `${row.height}px` }}
+          style={{ height: `${row.height}px`, gap: `${gap}px` }}
         >
-          {row.items.map((item, ii) => {
-            const cellStyle = { width: `${row.height * item.aspect}px` };
-            const inner = (
-              <>
-                <img
-                  src={item.src}
-                  alt={item.alt ?? ''}
-                  className="gallery__img"
-                  loading={ri === 0 ? 'eager' : 'lazy'}
-                  decoding="async"
-                />
-                {item.caption && (
-                  <div className="gallery__overlay">
-                    <span className="gallery__caption">{item.caption}</span>
-                  </div>
-                )}
-              </>
-            );
-
-            const key = `${ri}-${ii}-${item.src}`;
-
-            return item.href ? (
-              <Link
-                key={key}
-                to={item.href}
-                className={`gallery__cell gallery__cell--link${
-                  activeKey === key ? ' gallery__cell--active' : ''
-                }`}
-                style={cellStyle}
-                aria-label={item.alt ?? item.caption}
-                onClick={(e) => {
-                  // Mobile: first tap reveals the title, second navigates.
-                  if (isMobile && activeKey !== key) {
-                    e.preventDefault();
-                    setActiveKey(key);
-                  }
-                }}
-              >
-                {inner}
-              </Link>
-            ) : (
-              <div key={key} className="gallery__cell" style={cellStyle}>
-                {inner}
-              </div>
-            );
-          })}
+          {row.items.map((item, ii) =>
+            renderCell(item, `${ri}-${ii}-${item.src}`, {
+              width: `${row.height * item.aspect}px`,
+            })
+          )}
         </div>
       ))}
     </div>

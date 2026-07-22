@@ -9,29 +9,25 @@ export default function About() {
 
   return (
     <div className="about-page">
-      <div className="container">
-        <div className="about-page__row">
-          {/* LEFT: portrait */}
-          <div className="about-page__image">
-            <img
-              src={aboutPicture}
-              alt="Emma Pauzner & Sasha Neveu — PAUNE Architectes"
-              className="about-page__portrait"
-              loading="eager"
-            />
-          </div>
+      <div className="about-page__row">
+        {/* LEFT: portrait */}
+        <div className="about-page__image">
+          <img
+            src={aboutPicture}
+            alt="Emma Pauzner & Sasha Neveu — PAUNE Architectes"
+            className="about-page__portrait"
+            loading="eager"
+          />
+        </div>
 
-          {/* RIGHT: text */}
-          <div className="about-page__text">
-            <h1 className="about-page__title">{t.about.title}</h1>
-
-            <div className="about-page__body">
-              {paragraphs.map((para, i) => (
-                <p key={i} className="about-page__para">
-                  {para}
-                </p>
-              ))}
-            </div>
+        {/* RIGHT: text */}
+        <div className="about-page__text">
+          <div className="about-page__body">
+            {paragraphs.map((para, i) => (
+              <p key={i} className="about-page__para">
+                {para}
+              </p>
+            ))}
           </div>
         </div>
       </div>
