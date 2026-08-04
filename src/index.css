@@ -1,17 +1,24 @@
 
 
+/* Fonts live in /public/fonts and are served at /fonts/… — use an
+   ABSOLUTE url so the reference resolves the same in dev and in the
+   production build (a relative './fonts/…' breaks once the CSS is
+   emitted under /assets/). The family name must match the CSS
+   variables (--font-display / --font-body). */
 @font-face {
-  font-family: 'Centaur';
-  src: url('./fonts/Centaur_MT.ttf') format('truetype');
+  font-family: 'Centaur MT';
+  src: url('/fonts/Centaur_MT.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'Sequel Sans';
-  src: url('./fonts/Sequel_Sans_Light_Body.otf') format('opentype');
+  src: url('/fonts/Sequel_Sans_Light_Body.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
+  font-display: swap;
 }
 /* ───────────────────────────────────────────────────────────────────
    RESET
