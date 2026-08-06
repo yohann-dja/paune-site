@@ -62,11 +62,13 @@
 
 /* ── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  
+  /* Compact, classic footer: modest top margin to separate it from the
+     content, small symmetric padding, no bottom margin (the footer sits
+     at the very bottom of the page). */
   .footer {
-    margin-top: 2.4rem;
-    margin-bottom: 2.4rem;
-    padding: 2rem var(--page-px-sm) 2.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+    padding: 1rem var(--page-px-sm);
   }
 
   .footer__top {
@@ -74,7 +76,7 @@
   }
 
   .footer__logo svg {
-    width: 32px;
-    height: 24px;
+    width: 28px;
+    height: 21px;
   }
 }

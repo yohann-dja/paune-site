@@ -34,12 +34,12 @@ export default function Contact() {
             <span className="contact-page__label">{t.contact.instagramLabel}</span>
             <span className="contact-page__sep">:</span>
             <a
-              href="https://www.instagram.com"
+              href="https://www.instagram.com/paune.architectes/"
               target="_blank"
               rel="noopener noreferrer"
               className="contact-page__value"
             >
-              @paunearchi
+              paune.architectes
             </a>
           </div>
         </div>

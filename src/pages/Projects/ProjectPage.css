@@ -7,7 +7,7 @@
    ───────────────────────────────────────────────────────────────── */
 
 .project-page {
-  padding: 2rem var(--marge-site) 0;
+  padding: 0 var(--marge-site);
 }
 
 .project-page__layout {
@@ -50,8 +50,8 @@
 
 /* "Programme/ Rénovation d'appartement" — one small line per field. */
 .project-page__meta-row {
-  font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
   font-weight: 300;
   letter-spacing: 0.02em;
   line-height: 1.5;

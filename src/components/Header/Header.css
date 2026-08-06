@@ -37,14 +37,14 @@
 .header__nav {
   display: flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: var(--nav-gap);
 }
 
 .header__link {
-  font-family: var(--font-body);
-  font-weight: 300;
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
+  font-family: var(--nav-font-family);
+  font-weight: var(--nav-font-weight);
+  font-size: var(--nav-font-size);
+  letter-spacing: var(--nav-letter-spacing);
   color: var(--color-black);
   text-decoration: none;
 }

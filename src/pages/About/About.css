@@ -39,19 +39,42 @@
 }
 
 /* ── Text (right) — width = header menu width, left-aligned ─────────
-   265px is the measured width of the header nav (Projets / À propos /
-   Contact), so the text column's left edge lines up with the "P" of
-   "Projets". Both are anchored to the same right gutter. */
+   The column shrinks to the invisible width-reference (a replica of the
+   header nav), so its left edge lines up with the "P" of "Projets".
+   Both are anchored to the same right gutter (--marge-site). */
 .about-page__text {
   flex: 0 0 auto;
-  width: 265px;
-  display: flex;
-  flex-direction: column;
+  width: max-content;
+  max-width: 40%;
   text-align: left;
-  gap: 1.75rem;
 }
 
+/* Invisible replica of the header nav — only its WIDTH matters. It
+   contributes its content width (the menu width) to the column, while
+   the body below contributes 0 (width:0 + min-width:100%). */
+.about-page__widthref {
+  width: max-content;
+  display: flex;
+  gap: var(--nav-gap);
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.about-page__widthref span {
+  font-family: var(--nav-font-family);
+  font-weight: var(--nav-font-weight);
+  font-size: var(--nav-font-size);
+  letter-spacing: var(--nav-letter-spacing);
+  white-space: nowrap;
+}
+
+/* width:0 + min-width:100% → the body doesn't widen the column during
+   intrinsic sizing, but fills it (and wraps) once the width is set. */
 .about-page__body {
+  width: 0;
+  min-width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -83,6 +106,17 @@
 
   .about-page__text {
     width: 100%;
+    max-width: none;
+  }
+
+  /* Full width when stacked — the width reference is not needed. */
+  .about-page__widthref {
+    display: none;
+  }
+
+  .about-page__body {
+    width: auto;
+    min-width: 0;
   }
 }
 
