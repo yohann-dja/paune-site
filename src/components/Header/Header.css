@@ -37,7 +37,10 @@
 .header__nav {
   display: flex;
   align-items: center;
-  gap: var(--nav-gap);
+  /* Fixed width; space-between distributes the gaps so the menu is the
+     same total width in every language. */
+  width: var(--nav-width);
+  justify-content: space-between;
 }
 
 .header__link {

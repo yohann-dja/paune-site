@@ -42,7 +42,7 @@ export default function ProjectPage() {
             ))}
           </div>
 
-          {nextProject && (
+          {/* {nextProject && (
             <Link
               to={`/work/${nextProject.slug}`}
               className="project-page__next"
@@ -50,7 +50,7 @@ export default function ProjectPage() {
             >
               {t.project.nextProject}
             </Link>
-          )}
+          )} */}
         </aside>
 
         {/* Gallery: landscape photos full width, portraits paired 2-up */}

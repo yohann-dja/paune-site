@@ -26,47 +26,49 @@
 /* ── Info column (sticky) ───────────────────────────────────────── */
 .project-page__info {
   position: sticky;
-  top: calc(var(--header-h) + 1.5rem);
+  top: calc(var(--header-h) );
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.25rem;
   min-width: 0;
 }
 
 .project-page__title {
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
-  font-weight: 400;
+  /* font-size: clamp(1.2rem, 1.8vw, 1.6rem); */
+  font-size: 1rem;
+  font-weight: 550;
   letter-spacing: 0.04em;
-  line-height: 1.15;
+  line-height: 1;
+  text-transform: uppercase;
   color: var(--color-black);
 }
 
 .project-page__meta {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 /* "Programme/ Rénovation d'appartement" — one small line per field. */
 .project-page__meta-row {
   font-family: var(--font-display);
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 550;
   letter-spacing: 0.02em;
-  line-height: 1.5;
+  line-height: 1;
   color: var(--color-black);
   margin: 0;
 }
 
-.project-page__next {
+/* .project-page__next {
   font-family: var(--font-display);
-  font-size: 0.85rem;
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 550;
   letter-spacing: 0.05em;
   color: var(--color-black);
   transition: color 0.25s var(--ease-out);
-}
+} */
 
 .project-page__next:hover {
   color: var(--color-gold);

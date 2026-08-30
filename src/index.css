@@ -51,14 +51,18 @@
   --font-display:   'Centaur MT';
   --font-body:      'Sequel Sans';
 
-  /* Header nav typography — shared by the real menu AND the invisible
-     width-reference in the about page, so the about text column always
-     matches the menu width. Change the menu font here and both follow. */
+  /* Header nav typography — shared by the real menu AND the about text
+     column, so both stay in sync. */
   --nav-font-family:    var(--font-display);
-  --nav-font-weight:    300;
-  --nav-font-size:      0.78rem;
-  --nav-letter-spacing: 0.14em;
-  --nav-gap:            2.5rem;
+  --nav-font-weight:    500;
+  --nav-font-size:      1rem;
+  --nav-letter-spacing: 0em;
+  /* Fixed menu width (measured on the French labels). The nav uses
+     justify-content: space-between, so the spacing between items adapts
+     per language while the total width stays constant — the menu is the
+     same size in every language, and the about text column matches it.
+     Keep this ≥ the widest language's natural width. */
+  --nav-width:          12.8rem;
 
   --header-h:       76px;
   /* Approximate rendered footer height — used to size the Projects

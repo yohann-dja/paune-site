@@ -7,7 +7,7 @@ import { Project } from '../types/project';
 
 // Images are loaded from their folders in natural (alphabetical) order.
 const martelImages = Object.values(
-  import.meta.glob('./Projets/MARTEL/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', {
+  import.meta.glob('./Projets/MARTEL_compressed/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', {
     eager: true,
     query: '?url',
     import: 'default',
@@ -15,7 +15,7 @@ const martelImages = Object.values(
 ) as string[];
 
 const josephDeMaistreImages = Object.values(
-  import.meta.glob('./Projets/JOSEPH_DE_MAISTRE/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', {
+  import.meta.glob('./Projets/JOSEPH_DE_MAISTRE_compressed/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', {
     eager: true,
     query: '?url',
     import: 'default',

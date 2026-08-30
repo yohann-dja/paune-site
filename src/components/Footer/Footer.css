@@ -12,6 +12,24 @@
   gap: 1rem;
 }
 
+/* Left: Instagram link (Centaur) */
+.footer__link {
+  justify-self: start;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  color: var(--color-black);
+  text-decoration: none;
+}
+
+/* Underline on hover, like the header menu (no colour change). */
+.footer__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+  text-decoration-thickness: 1px;
+}
+
 /* Center logo */
 .footer__logo {
   justify-self: center;
