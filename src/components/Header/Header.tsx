@@ -3,7 +3,6 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useLocale } from '../../i18n/LocaleContext';
 import './Header.css';
 import LOGOTYPE_PAUNE_BLACK from '../../data/LOGOTYPE_PAUNE_BLACK.svg';
-import LOGOTYPE_ARCHI_PAUNE_BLACK from '../../data/LOGOTYPE_ARCHI_PAUNE_BLACK.svg';
 
 export default function Header() {
   const { t } = useLocale();

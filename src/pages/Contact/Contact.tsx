@@ -17,9 +17,14 @@ export default function Contact() {
           <div className="contact-page__row">
             <span className="contact-page__label">{t.contact.phoneLabel}</span>
             <span className="contact-page__sep">:</span>
-            <a href="tel:+33662118403" className="contact-page__value">
-              +33 (0)6 62 11 84 03
-            </a>
+            <span className="contact-page__values">
+              <a href="tel:+33662118403" className="contact-page__value">
+                +33 (0)6 62 11 84 03
+              </a>
+              <a href="tel:+33651434511" className="contact-page__value">
+                +33 (0)6 51 43 45 11
+              </a>
+            </span>
           </div>
 
           <div className="contact-page__row">
