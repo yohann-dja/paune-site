@@ -31,7 +31,7 @@ export default function Contact() {
             <span className="contact-page__label">{t.contact.emailLabel}</span>
             <span className="contact-page__sep">:</span>
             <a href="mailto:agence@paune.fr" className="contact-page__value">
-              contact@paune.fr
+              agence@paune.fr
             </a>
           </div>
 
