@@ -53,11 +53,12 @@ export const translations: Record<Locale, Translations> = {
       instagram: 'Instagram',
     },
     about: {
-      body: `PAUNE, fondé à Paris par Emma Pauzner et Sasha Neveu, est né d'une rencontre évidente — celle de deux regards qui, dès 2018, se reconnaissent dans une même manière de percevoir les espaces. Formées à l'ENSA Paris-Val de Seine, toutes deux architectes HMONP, elles développent ensemble une écriture singulière, où l'intuition dialogue avec le Genius Loci.
-Chaque projet débute comme une immersion. Observer, ressentir, comprendre. Laisser apparaître les lignes de force d'un espace, capter une lumière, deviner une atmosphère. Puis vient le geste, mesuré, essentiel, qui transforme sans jamais brusquer.
-Leur architecture cultive une élégance silencieuse. Matières naturelles, textures profondes, palettes nuancées : tout concourt à composer des lieux habités, où chaque détail semble à sa place.
-Le sur-mesure y dialogue avec des pièces choisies avec soin, dans une recherche constante d'équilibre et de cohérence.
+      body: `PAUNE, fondé à Paris par Emma Pauzner et Sasha Neveu, est né d’une rencontre évidente — celle de deux regards qui, dès 2018, se reconnaissent dans une même manière de percevoir les espaces.
+Formées à l’ENSA Paris-Val de Seine et l’UNIFI, toutes deux architectes HMONP, elles développent ensemble une écriture singulière, où l’intuition dialogue avec le Genius Loci. 
+Chaque projet débute comme une immersion. Observer, ressentir, comprendre. Laisser apparaître les lignes de force d’un espace, capter une lumière, deviner une atmosphère. Puis vient le geste, mesuré, essentiel, qui transforme sans jamais brusquer.
+Leur architecture cultive une élégance silencieuse. Matières naturelles, textures profondes, palettes nuancées : tout concourt à composer des lieux habités, où chaque détail semble à sa place. Le sur-mesure y dialogue avec des pièces choisies avec soin, dans une recherche constante d’équilibre et de cohérence.
 À travers ses réalisations, Paune dessine des intérieurs intemporels, sensibles et incarnés. Des espaces qui racontent une histoire sans jamais la figer.`,
+
     },
     contact: {
       title: 'Agence',
@@ -91,11 +92,11 @@ Le sur-mesure y dialogue avec des pièces choisies avec soin, dans une recherche
       instagram: 'Instagram',
     },
     about: {
-      body: `PAUNE, founded in Paris by Emma Pauzner and Sasha Neveu, was born from an obvious encounter — that of two perspectives which, as early as 2018, recognised in each other a shared way of perceiving spaces. Trained at ENSA Paris-Val de Seine, both architects HMONP, they have developed together a singular voice, in which intuition dialogues with the Genius Loci.\n
-Each project begins as an immersion. Observe, feel, understand. Let the lines of force of a space emerge, capture a quality of light, sense an atmosphere. Then comes the gesture — measured, essential — that transforms without ever forcing.\n
-Their architecture cultivates a quiet elegance. Natural materials, deep textures, nuanced palettes: everything contributes to composing inhabited places, where each detail seems to be in its right place.\n
-Bespoke pieces dialogue with carefully chosen ones, in a constant search for balance and coherence.\n
-Through its work, Paune designs timeless, sensitive, embodied interiors. Spaces that tell a story without ever fixing it.`,
+      body: `PAUNE, founded in Paris by Emma Pauzner and Sasha Neveu, grew out of a natural connection—a meeting of two perspectives that, as early as 2018, recognized a shared way of perceiving space.
+Trained at ENSA Paris-Val de Seine and UNIFI, and both qualified architects (HMONP), they have developed a distinctive design language together, one where intuition engages in a dialogue with the genius loci.
+Every project begins with immersion: observing, feeling, and understanding. It involves allowing a space’s defining lines to emerge, capturing the light, and sensing the atmosphere. Then comes the gesture—measured and essential—that transforms the space without ever disrupting it.
+Their architecture cultivates a quiet elegance. Natural materials, rich textures, and nuanced palettes all combine to create living spaces where every detail feels perfectly placed. Bespoke elements converse with carefully curated pieces in a constant pursuit of balance and coherence.
+Through their work, PAUNE creates interiors that are timeless, sensitive, and full of character—spaces that tell a story without ever freezing it in time.`,
     },
     contact: {
       title: 'Studio',

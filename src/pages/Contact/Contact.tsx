@@ -30,7 +30,7 @@ export default function Contact() {
           <div className="contact-page__row">
             <span className="contact-page__label">{t.contact.emailLabel}</span>
             <span className="contact-page__sep">:</span>
-            <a href="mailto:contact@paune.fr" className="contact-page__value">
+            <a href="mailto:agence@paune.fr" className="contact-page__value">
               contact@paune.fr
             </a>
           </div>
